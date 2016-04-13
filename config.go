@@ -57,6 +57,7 @@ type Config struct {
 	UseAsyncSessionWrite              bool   `json:"optimisations_use_async_session_write"`
 	AllowMasterKeys                   bool   `json:"allow_master_keys"`
 	HashKeys                          bool   `json:"hash_keys"`
+	Murmur3KeyHashSeed                uint32 `json:"murmur3_key_hash_seed"`
 	SuppressRedisSignalReload         bool   `json:"suppress_redis_signal_reload"`
 	SupressDefaultOrgStore            bool   `json:"suppress_default_org_store"`
 	SentryCode                        string `json:"sentry_code"`
@@ -159,6 +160,7 @@ func WriteDefaultConf(configStruct *Config) {
 	configStruct.AnalyticsConfig.IgnoredIPs = make([]string, 0)
 	configStruct.UseAsyncSessionWrite = false
 	configStruct.HideGeneratorHeader = false
+	configStruct.Murmur3KeyHashSeed = 1
 	newConfig, err := json.MarshalIndent(configStruct, "", "    ")
 	if err != nil {
 		log.Error("Problem marshalling default configuration!")

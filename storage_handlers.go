@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"github.com/garyburd/redigo/redis"
-	"github.com/spaolacci/murmur3"
+	"github.com/huydx/murmur3"
 	"hash"
 	"strconv"
 	"strings"
@@ -249,7 +249,7 @@ func (r *RedisStorageManager) Connect() bool {
 }
 
 func doHash(in string) string {
-	var h hash.Hash32 = murmur3.New32()
+	var h hash.Hash32 = murmur3.New32(config.Murmur3KeyHashSeed)
 	h.Write([]byte(in))
 	return hex.EncodeToString(h.Sum(nil))
 }
